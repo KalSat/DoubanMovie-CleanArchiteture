@@ -13,7 +13,6 @@ import com.tritiger.doubanmovie.domain.exception.DefaultErrorBundle;
 import com.tritiger.doubanmovie.domain.exception.ErrorBundle;
 import com.tritiger.doubanmovie.domain.interactor.DefaultSubscriber;
 import com.tritiger.doubanmovie.domain.interactor.GetMovieList;
-import com.tritiger.doubanmovie.domain.repository.MovieRepository;
 import com.tritiger.doubanmovie.exception.ErrorMessageFactory;
 import com.tritiger.doubanmovie.ui.IViewMovieGrid;
 
@@ -25,11 +24,15 @@ public class MovieGridPresenter implements Presenter {
 
     private final IViewMovieGrid viewMovieGrid;
     private final GetMovieList getMovieListCase;
+    private final GetMovieList getMovieListCacheCase;
 
     public MovieGridPresenter(@NonNull Context context, @NonNull IViewMovieGrid viewMovieGrid) {
-        MovieDataStoreFactory movieDataStoreFactory = new MovieDataStoreFactory(context);
-        MovieRepository movieRepository = new MovieDataRepository(movieDataStoreFactory);
-        this.getMovieListCase = new GetMovieList(movieRepository,
+        MovieDataStoreFactory factory = new MovieDataStoreFactory(context);
+        this.getMovieListCase = new GetMovieList(
+                new MovieDataRepository(factory.createCloudDataStore()),
+                new JobExecutor(), new UIThread());
+        this.getMovieListCacheCase = new GetMovieList(
+                new MovieDataRepository(factory.createCacheDataStore()),
                 new JobExecutor(), new UIThread());
         this.viewMovieGrid = viewMovieGrid;
     }
@@ -101,6 +104,16 @@ public class MovieGridPresenter implements Presenter {
                 showViewRetry();
             }
         });
+    }
+
+    public void loadMovieList(int count) {
+        getMovieListCacheCase.execute(0, count, new DefaultSubscriber<MovieList>() {
+            @Override
+            public void onNext(MovieList movieList) {
+                viewMovieGrid.resetMovieList(movieList.movies, movieList.total);
+            }
+        });
+        refetchMovieData(count);
     }
 
     public void fetchMoreMovieData(int start, int count) {

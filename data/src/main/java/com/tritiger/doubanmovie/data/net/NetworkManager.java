@@ -51,6 +51,10 @@ public class NetworkManager {
         return doubanApi.getTopMovies(start, count, DoubanApi.API_KEY);
     }
 
+    public Observable<MovieListEntity> getTopMoviesFromCache(int start, int count) {
+        return doubanApi.getTopMoviesFromCache(start, count, DoubanApi.API_KEY);
+    }
+
     private Interceptor getCacheControlInterceptor(final Context context) {
         return new Interceptor() {
             @Override

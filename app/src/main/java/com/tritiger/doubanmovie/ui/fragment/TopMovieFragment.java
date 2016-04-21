@@ -45,7 +45,7 @@ public class TopMovieFragment extends AbstractFragment implements IViewMovieGrid
 
     @Override
     protected void childLoadData() {
-        movieGridPresenter.refreshMovieList(LOAD_DATA_COUNT);
+        movieGridPresenter.loadMovieList(LOAD_DATA_COUNT);
     }
 
     @Override

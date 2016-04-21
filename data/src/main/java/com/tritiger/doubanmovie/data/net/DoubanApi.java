@@ -23,4 +23,10 @@ public interface DoubanApi {
     @GET("movie/top250")
     Observable<MovieListEntity> getTopMovies(@Query("start") int start, @Query("count") int count,
                                              @Query("apikey") String key);
+
+    @Headers("Cache-Control: public, only-if-cached, max-stale=2419200")
+    @GET("movie/top250")
+    Observable<MovieListEntity> getTopMoviesFromCache(@Query("start") int start,
+                                                      @Query("count") int count,
+                                                      @Query("apikey") String key);
 }
