@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_base"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.tritiger.doubanmovie.widget.EndlessRecyclerView
+            android:id="@+id/rv_base"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbarStyle="outsideOverlay"
+            android:scrollbars="vertical"
+            android:visibility="visible" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+</FrameLayout>
