@@ -22,16 +22,103 @@ public class MovieEntityMapper {
         if (movieEntity != null) {
             movie = new Movie(movieEntity.id);
             movie.title = movieEntity.title;
-            if (movieEntity.rating != null) {
-                movie.rating = movieEntity.rating.average;
+            movie.originalTitle = movieEntity.original_title;
+            movie.cover = transform(movieEntity.images);
+            movie.rating = transform(movieEntity.rating);
+            movie.ratingNum = movieEntity.ratings_count;
+            movie.year = movieEntity.year;
+            if (movieEntity.directors != null) {
+                movie.directors = new Movie.Cast[movieEntity.directors.length];
+                for (int i = 0; i < movieEntity.directors.length; i++) {
+                    movie.directors[i] = transform(movieEntity.directors[i]);
+                }
             }
-            if (movieEntity.images != null) {
-                movie.coverUrlSmall = movieEntity.images.small;
-                movie.coverUrlMedium = movieEntity.images.medium;
-                movie.coverUrlLarge = movieEntity.images.large;
+            if (movieEntity.writers != null) {
+                movie.writers = new Movie.Cast[movieEntity.writers.length];
+                for (int i = 0; i < movieEntity.writers.length; i++) {
+                    movie.writers[i] = transform(movieEntity.writers[i]);
+                }
+            }
+            if (movieEntity.casts != null) {
+                movie.casts = new Movie.Cast[movieEntity.casts.length];
+                for (int i = 0; i < movieEntity.casts.length; i++) {
+                    movie.casts[i] = transform(movieEntity.casts[i]);
+                }
+            }
+            if (movieEntity.genres != null) {
+                movie.types = new String[movieEntity.genres.length];
+                System.arraycopy(movieEntity.genres, 0, movie.types, 0, movieEntity.genres.length);
+            }
+            if (movieEntity.countries != null) {
+                movie.countries = new String[movieEntity.countries.length];
+                System.arraycopy(movieEntity.countries, 0, movie.countries, 0,
+                        movieEntity.countries.length);
+            }
+            if (movieEntity.languages != null) {
+                movie.languages = new String[movie.languages.length];
+                System.arraycopy(movieEntity.languages, 0, movie.languages, 0,
+                        movieEntity.languages.length);
+            }
+            if (movieEntity.pubdates != null) {
+                movie.releaseDates = new String[movieEntity.pubdates.length];
+                System.arraycopy(movieEntity.pubdates, 0, movie.releaseDates, 0,
+                        movieEntity.pubdates.length);
+            }
+            if (movieEntity.durations != null) {
+                movie.durations = new String[movieEntity.durations.length];
+                System.arraycopy(movieEntity.durations, 0, movie.durations, 0,
+                        movieEntity.durations.length);
+            }
+            if (movieEntity.aka != null) {
+                movie.akas = new String[movieEntity.aka.length];
+                System.arraycopy(movieEntity.aka, 0, movie.akas, 0, movieEntity.aka.length);
             }
         }
         return movie;
+    }
+
+    private static Movie.Cast transform(MovieEntity.CastEntity castEntity) {
+        Movie.Cast cast = null;
+        if (castEntity != null) {
+            cast = new Movie.Cast();
+            cast.alt = castEntity.alt;
+            cast.id = castEntity.id;
+            cast.name = castEntity.name;
+            cast.englishName = castEntity.name_en;
+            cast.avatar = transform(castEntity.avatars);
+        }
+        return cast;
+    }
+
+    private static Movie.Rating transform(MovieEntity.RatingEntity ratingEntity) {
+        Movie.Rating rating = null;
+        if (ratingEntity != null) {
+            rating = new Movie.Rating();
+            rating.max = ratingEntity.max;
+            rating.average = ratingEntity.average;
+            rating.min = ratingEntity.min;
+            if (ratingEntity.details != null) {
+                rating.details = new int[ratingEntity.details.size() + 1];
+                rating.details[1] = ratingEntity.details.get("1");
+                rating.details[2] = ratingEntity.details.get("2");
+                rating.details[3] = ratingEntity.details.get("3");
+                rating.details[4] = ratingEntity.details.get("4");
+                rating.details[5] = ratingEntity.details.get("5");
+            }
+            rating.star = ratingEntity.stars;
+        }
+        return rating;
+    }
+
+    private static Movie.Image transform(MovieEntity.ImageEntity imageEntity) {
+        Movie.Image image = null;
+        if (imageEntity != null) {
+            image = new Movie.Image();
+            image.small = imageEntity.small;
+            image.large = imageEntity.large;
+            image.medium = imageEntity.medium;
+        }
+        return image;
     }
 
     /**

@@ -6,12 +6,12 @@
     android:orientation="vertical">
 
     <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_base"
+        android:id="@+id/mv_swipe"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <com.tritiger.doubanmovie.widget.EndlessRecyclerView
-            android:id="@+id/rv_base"
+            android:id="@+id/mv_recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbarStyle="outsideOverlay"

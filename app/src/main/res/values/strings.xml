@@ -9,4 +9,17 @@
     <string name="exception_message_user_not_found">Cannot retrieve user data. Check your internet connection</string>
 
     <string name="load_fail_tip">Load fail, click to try again</string>
+    <string name="more_info">more information</string>
+
+    <string name="director">Director:</string>
+    <string name="writers">Writers:</string>
+    <string name="actors">Actors:</string>
+    <string name="country">Country/Area:</string>
+    <string name="type">Type:</string>
+    <string name="language">Language:</string>
+    <string name="release_date">Release Date:</string>
+    <string name="runtime">Runtime:</string>
+    <string name="aka">Also Known As:</string>
+    <string name="summary">Plot Summary</string>
+    <string name="recommend">People who liked this also liked…</string>
 </resources>

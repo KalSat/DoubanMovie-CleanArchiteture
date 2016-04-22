@@ -39,15 +39,15 @@ public class MovieGridAdapter extends EndlessAdapter<MovieViewHolder> {
     @Override
     protected void onBindItemViewHolder(MovieViewHolder holder, int position) {
         final Movie movie = movieList.get(position);
-        Picasso.with(context).load(getImageUrl(movie)).into(holder.coverImage);
+        Picasso.with(context).load(getImageUrl(movie.cover)).into(holder.coverImage);
         holder.titleText.setText(movie.title);
         holder.titleText.setSelected(true);
-        if (movie.rating <= 0) {
+        if (movie.rating.average <= 0) {
             holder.scoreText.setText("暂无评价");
             holder.ratingBar.setVisibility(View.GONE);
         } else {
-            holder.scoreText.setText(String.valueOf(movie.rating));
-            holder.ratingBar.setRating(movie.rating / 2);
+            holder.scoreText.setText(String.valueOf(movie.rating.average));
+            holder.ratingBar.setRating(movie.rating.average / 2);
             holder.ratingBar.setVisibility(View.VISIBLE);
         }
 
@@ -87,20 +87,20 @@ public class MovieGridAdapter extends EndlessAdapter<MovieViewHolder> {
     /**
      * 根据当前设置自动获取图片质量
      */
-    public String getImageUrl(Movie bean) {
+    public String getImageUrl(Movie.Image bean) {
         String url = "";
         switch (IMAGE_QUALITY) {
             case QUALITY_AUTO:
-                url = bean.coverUrlLarge;
+                url = bean.large;
                 break;
             case QUALITY_HIGH:
-                url = bean.coverUrlLarge;
+                url = bean.large;
                 break;
             case QUALITY_MID:
-                url = bean.coverUrlMedium;
+                url = bean.medium;
                 break;
             case QUALITY_LOW:
-                url = bean.coverUrlSmall;
+                url = bean.small;
                 break;
         }
         return url;

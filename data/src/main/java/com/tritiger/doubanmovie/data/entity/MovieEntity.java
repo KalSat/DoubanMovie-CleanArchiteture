@@ -1,48 +1,48 @@
 package com.tritiger.doubanmovie.data.entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Movie Entity used in the data layer.
  */
 public class MovieEntity {
 
+    public String alt;
     public String id;
-    public RatingBean rating;
-    public ArrayList<String> genres;
-    public int collect_count;
-    public ArrayList<CastBean> casts;
     public String title;
     public String original_title;
-    public String subtype;
-    public ArrayList<DirectorBean> directors;
+    public ImageEntity images;
+    public RatingEntity rating;
+    public int ratings_count;
     public String year;
-    public ImagesBean images;
-    public String alt;
+    public CastEntity[] directors;
+    public CastEntity[] writers;
+    public CastEntity[] casts;
+    public String[] genres;
+    public String[] countries;
+    public String[] languages;
+    public String[] pubdates;
+    public String[] durations;
+    public String[] aka;
 
-    public class CastBean implements Serializable {
+    public class CastEntity implements Serializable {
         public String alt;
         public String id;
         public String name;
-        public ImagesBean avatars;
+        public String name_en;
+        public ImageEntity avatars;
     }
 
-    public class RatingBean implements Serializable {
+    public class RatingEntity implements Serializable {
         public int max;
         public float average;
         public int min;
+        public HashMap<String, Integer> details;
         public String stars;
     }
 
-    public static class DirectorBean implements Serializable {
-        public String alt;
-        public String id;
-        public String name;
-        public ImagesBean avatars;
-    }
-
-    public class ImagesBean implements Serializable {
+    public class ImageEntity implements Serializable {
         public String small;
         public String large;
         public String medium;

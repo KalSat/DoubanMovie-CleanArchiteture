@@ -67,9 +67,9 @@ public class TopMovieFragment extends AbstractFragment implements IViewMovieGrid
     }
 
     private void initView(View view) {
-        recyclerView = (EndlessRecyclerView) view.findViewById(R.id.rv_base);
+        recyclerView = (EndlessRecyclerView) view.findViewById(R.id.mv_recycler);
 
-        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_base);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.mv_swipe);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
