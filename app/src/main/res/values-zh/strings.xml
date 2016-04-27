@@ -3,5 +3,17 @@
     <string name="app_name">豆瓣电影</string>
     <string name="action_settings">设置</string>
     <string name="load_fail_tip">加载失败，点击重试</string>
-    <string name="more_info">更过信息</string>
+    <string name="more_info">更多信息</string>
+    <string name="actors">演员:</string>
+    <string name="aka">别名:</string>
+    <string name="country">国家/地区:</string>
+    <string name="director">导演:</string>
+    <string name="language">语言:</string>
+    <string name="original_title">原名:</string>
+    <string name="recommend">相关推荐</string>
+    <string name="release_date">发布日期:</string>
+    <string name="runtime">时长:</string>
+    <string name="summary">情节概要</string>
+    <string name="type">类别:</string>
+    <string name="writers">编剧:</string>
 </resources>

@@ -11,6 +11,7 @@
     <string name="load_fail_tip">Load fail, click to try again</string>
     <string name="more_info">more information</string>
 
+    <string name="original_title">Original Title:</string>
     <string name="director">Director:</string>
     <string name="writers">Writers:</string>
     <string name="actors">Actors:</string>

@@ -32,7 +32,9 @@ public abstract class AbstractFragment extends Fragment {
                     @Override
                     public void onGlobalLayout() {
                         view.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                        mSwipeRefreshLayout.setRefreshing(true);
+                        if (mSwipeRefreshLayout != null) {
+                            mSwipeRefreshLayout.setRefreshing(true);
+                        }
                         loadData();
                     }
                 });

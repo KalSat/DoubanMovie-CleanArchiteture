@@ -12,6 +12,7 @@ import com.tritiger.doubanmovie.R;
 import com.tritiger.doubanmovie.domain.Movie;
 import com.tritiger.doubanmovie.presenter.MovieGridPresenter;
 import com.tritiger.doubanmovie.ui.IViewMovieGrid;
+import com.tritiger.doubanmovie.ui.activity.MovieDetailActivity;
 import com.tritiger.doubanmovie.ui.adapter.MovieGridAdapter;
 import com.tritiger.doubanmovie.widget.EndlessRecyclerView;
 
@@ -123,8 +124,8 @@ public class TopMovieFragment extends AbstractFragment implements IViewMovieGrid
     }
 
     @Override
-    public void viewMovie(Movie MovieModel) {
-
+    public void viewMovie(Movie movie) {
+        MovieDetailActivity.startActivity(getContext(), movie);
     }
 
     @Override
