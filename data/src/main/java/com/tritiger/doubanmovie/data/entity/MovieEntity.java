@@ -12,6 +12,7 @@ public class MovieEntity {
     public String id;
     public String title;
     public String original_title;
+    public String summary;
     public ImageEntity images;
     public RatingEntity rating;
     public int ratings_count;

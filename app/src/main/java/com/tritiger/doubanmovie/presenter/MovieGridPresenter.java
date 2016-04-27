@@ -1,6 +1,5 @@
 package com.tritiger.doubanmovie.presenter;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.tritiger.doubanmovie.UIThread;
@@ -26,8 +25,8 @@ public class MovieGridPresenter implements Presenter {
     private final GetMovieList getMovieListCase;
     private final GetMovieList getMovieListCacheCase;
 
-    public MovieGridPresenter(@NonNull Context context, @NonNull IViewMovieGrid viewMovieGrid) {
-        MovieDataStoreFactory factory = new MovieDataStoreFactory(context);
+    public MovieGridPresenter(@NonNull IViewMovieGrid viewMovieGrid) {
+        MovieDataStoreFactory factory = new MovieDataStoreFactory(viewMovieGrid.getContext());
         this.getMovieListCase = new GetMovieList(
                 new MovieDataRepository(factory.createCloudDataStore()),
                 new JobExecutor(), new UIThread());

@@ -14,4 +14,9 @@ public interface MovieDataStore {
      */
     Observable<MovieListEntity> getTopMovieList(int start, int count);
 
+    /**
+     * Get an {@link Observable} which will emit a {@link MovieEntity}.
+     */
+    Observable<MovieEntity> getMovie(String id);
+
 }

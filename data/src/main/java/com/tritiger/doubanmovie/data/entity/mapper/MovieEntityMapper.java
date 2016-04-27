@@ -21,8 +21,10 @@ public class MovieEntityMapper {
         Movie movie = null;
         if (movieEntity != null) {
             movie = new Movie(movieEntity.id);
+            movie.alt = movieEntity.alt;
             movie.title = movieEntity.title;
             movie.originalTitle = movieEntity.original_title;
+            movie.summary = movieEntity.summary;
             movie.cover = transform(movieEntity.images);
             movie.rating = transform(movieEntity.rating);
             movie.ratingNum = movieEntity.ratings_count;
@@ -55,7 +57,7 @@ public class MovieEntityMapper {
                         movieEntity.countries.length);
             }
             if (movieEntity.languages != null) {
-                movie.languages = new String[movie.languages.length];
+                movie.languages = new String[movieEntity.languages.length];
                 System.arraycopy(movieEntity.languages, 0, movie.languages, 0,
                         movieEntity.languages.length);
             }

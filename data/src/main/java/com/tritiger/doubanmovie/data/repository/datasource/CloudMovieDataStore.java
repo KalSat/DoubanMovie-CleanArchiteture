@@ -1,5 +1,6 @@
 package com.tritiger.doubanmovie.data.repository.datasource;
 
+import com.tritiger.doubanmovie.data.entity.MovieEntity;
 import com.tritiger.doubanmovie.data.entity.MovieListEntity;
 import com.tritiger.doubanmovie.data.net.NetworkManager;
 
@@ -26,4 +27,8 @@ public class CloudMovieDataStore implements MovieDataStore {
         return this.network.getTopMovies(start, count);
     }
 
+    @Override
+    public Observable<MovieEntity> getMovie(String id) {
+        return this.network.getMovie(id);
+    }
 }

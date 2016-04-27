@@ -40,7 +40,7 @@ public class TopMovieFragment extends AbstractFragment implements IViewMovieGrid
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_top_movie, container, false);
         initView(view);
-        movieGridPresenter = new MovieGridPresenter(getContext(), this);
+        movieGridPresenter = new MovieGridPresenter(this);
         return view;
     }
 
@@ -112,6 +112,11 @@ public class TopMovieFragment extends AbstractFragment implements IViewMovieGrid
     }
 
     @Override
+    public void showError(String message) {
+
+    }
+
+    @Override
     public void resetMovieList(List<Movie> movieList, int total) {
         adapter.maxDataCount = total;
         adapter.set(movieList);
@@ -126,11 +131,6 @@ public class TopMovieFragment extends AbstractFragment implements IViewMovieGrid
     @Override
     public void viewMovie(Movie movie) {
         MovieDetailActivity.startActivity(getContext(), movie);
-    }
-
-    @Override
-    public void showError(String message) {
-
     }
 
     @Override

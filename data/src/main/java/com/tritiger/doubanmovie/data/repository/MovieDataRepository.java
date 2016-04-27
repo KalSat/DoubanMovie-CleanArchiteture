@@ -1,8 +1,11 @@
 package com.tritiger.doubanmovie.data.repository;
 
+import com.tritiger.doubanmovie.data.entity.MovieEntity;
 import com.tritiger.doubanmovie.data.entity.MovieListEntity;
+import com.tritiger.doubanmovie.data.entity.mapper.MovieEntityMapper;
 import com.tritiger.doubanmovie.data.entity.mapper.MovieListEntityMapper;
 import com.tritiger.doubanmovie.data.repository.datasource.MovieDataStore;
+import com.tritiger.doubanmovie.domain.Movie;
 import com.tritiger.doubanmovie.domain.MovieList;
 import com.tritiger.doubanmovie.domain.repository.MovieRepository;
 
@@ -27,6 +30,17 @@ public class MovieDataRepository implements MovieRepository {
                     @Override
                     public MovieList call(MovieListEntity movieListEntity) {
                         return MovieListEntityMapper.transform(movieListEntity);
+                    }
+                });
+    }
+
+    @Override
+    public Observable<Movie> movie(String id) {
+        return userDataStore.getMovie(id)
+                .map(new Func1<MovieEntity, Movie>() {
+                    @Override
+                    public Movie call(MovieEntity movieEntity) {
+                        return MovieEntityMapper.transform(movieEntity);
                     }
                 });
     }

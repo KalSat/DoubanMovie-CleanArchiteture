@@ -5,6 +5,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
+import com.tritiger.doubanmovie.data.entity.MovieEntity;
 import com.tritiger.doubanmovie.data.entity.MovieListEntity;
 
 import java.io.File;
@@ -53,6 +54,14 @@ public class NetworkManager {
 
     public Observable<MovieListEntity> getTopMoviesFromCache(int start, int count) {
         return doubanApi.getTopMoviesFromCache(start, count, DoubanApi.API_KEY);
+    }
+
+    public Observable<MovieEntity> getMovie(String id) {
+        return doubanApi.getMovie(id, DoubanApi.API_KEY);
+    }
+
+    public Observable<MovieEntity> getMovieFromCache(String id) {
+        return doubanApi.getMovieFromCache(id, DoubanApi.API_KEY);
     }
 
     private Interceptor getCacheControlInterceptor(final Context context) {

@@ -12,6 +12,7 @@ public class Movie implements Serializable {
     public String alt;
     public String title;
     public String originalTitle;
+    public String summary;
     public Image cover;
     public Rating rating;
     public int ratingNum;

@@ -12,13 +12,28 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.tritiger.doubanmovie.R;
 import com.tritiger.doubanmovie.domain.Movie;
+import com.tritiger.doubanmovie.presenter.MovieDetailPresenter;
+import com.tritiger.doubanmovie.ui.IViewMovieDetail;
 import com.tritiger.doubanmovie.widget.HiddenTextView;
 
-public class MovieDetailFragment extends AbstractFragment {
+public class MovieDetailFragment extends AbstractFragment implements IViewMovieDetail {
 
     private static final String ARG_MOVIE = "movie";
 
     private Movie movie;
+    private MovieDetailPresenter movieDetailPresenter;
+
+    private HiddenTextView originalTitleText;
+    private HiddenTextView directorText;
+    private HiddenTextView writerText;
+    private HiddenTextView actorText;
+    private HiddenTextView typeText;
+    private HiddenTextView countryText;
+    private HiddenTextView languageText;
+    private HiddenTextView releaseDateText;
+    private HiddenTextView runtimeText;
+    private HiddenTextView akaText;
+    private TextView summaryText;
 
     public MovieDetailFragment() {
         // Required empty public constructor
@@ -47,12 +62,54 @@ public class MovieDetailFragment extends AbstractFragment {
 
         getActivity().setTitle(movie.title);
         initView(view);
+        movieDetailPresenter = new MovieDetailPresenter(this);
 
         return view;
     }
 
+    @Override
+    protected void childLoadData() {
+        movieDetailPresenter.refreshMovie(movie.id);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        movieDetailPresenter.resume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        movieDetailPresenter.pause();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        movieDetailPresenter.destroy();
+    }
+
     private void initView(View view) {
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.md_swipe);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                movieDetailPresenter.refreshMovie(movie.id);
+            }
+        });
+
+        originalTitleText = (HiddenTextView) view.findViewById(R.id.md_original_title);
+        directorText = (HiddenTextView) view.findViewById(R.id.md_director);
+        writerText = (HiddenTextView) view.findViewById(R.id.md_writers);
+        actorText = (HiddenTextView) view.findViewById(R.id.md_actors);
+        typeText = (HiddenTextView) view.findViewById(R.id.md_type);
+        countryText = (HiddenTextView) view.findViewById(R.id.md_country);
+        languageText = (HiddenTextView) view.findViewById(R.id.md_language);
+        releaseDateText = (HiddenTextView) view.findViewById(R.id.md_release_date);
+        runtimeText = (HiddenTextView) view.findViewById(R.id.md_runtime);
+        akaText = (HiddenTextView) view.findViewById(R.id.md_aka);
+        summaryText = (TextView) view.findViewById(R.id.md_summary);
 
         if (movie.cover != null) {
             Picasso.with(getContext()).load(movie.cover.large)
@@ -63,22 +120,57 @@ public class MovieDetailFragment extends AbstractFragment {
 //        tvSubjectRating = (TextView) findViewById(R.id.tv_subject_rating);
 //        tvSubjectFavoriteCount = (TextView) findViewById(R.id.tv_subject_favorite_count);
 
-        ((HiddenTextView) view.findViewById(R.id.md_original_title)).setNullableText(
-                !movie.originalTitle.equals(movie.title) ? movie.originalTitle : null);
-        ((HiddenTextView) view.findViewById(R.id.md_director)).setNullableText(combineNames(movie.directors));
-        ((HiddenTextView) view.findViewById(R.id.md_writers)).setNullableText(combineNames(movie.writers));
-        ((HiddenTextView) view.findViewById(R.id.md_actors)).setNullableText(combineNames(movie.casts));
-        ((HiddenTextView) view.findViewById(R.id.md_type)).setNullableText(combineString(movie.types));
-        ((HiddenTextView) view.findViewById(R.id.md_country)).setNullableText(combineString(movie.countries));
-        ((HiddenTextView) view.findViewById(R.id.md_language)).setNullableText(combineString(movie.languages));
-        ((HiddenTextView) view.findViewById(R.id.md_release_date)).setNullableText(combineString(movie.releaseDates));
-        ((HiddenTextView) view.findViewById(R.id.md_runtime)).setNullableText(combineString(movie.durations));
-        ((HiddenTextView) view.findViewById(R.id.md_aka)).setNullableText(combineString(movie.akas));
-        ((TextView) view.findViewById(R.id.md_summary)).setText("");
+        updateView(this.movie);
 
         view.findViewById(R.id.md_summary_more).setOnClickListener(null);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.md_recommend_movies);
 
+    }
+
+    @Override
+    public void showLoading() {
+        mSwipeRefreshLayout.setRefreshing(true);
+    }
+
+    @Override
+    public void hideLoading() {
+        mSwipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void showRetry() {
+
+    }
+
+    @Override
+    public void hideRetry() {
+
+    }
+
+    @Override
+    public void showError(String message) {
+
+    }
+
+    @Override
+    public void renderMovie(Movie movie) {
+        this.movie = movie;
+        updateView(movie);
+    }
+
+    private void updateView(Movie movie) {
+        originalTitleText.setNullableText(
+                !movie.originalTitle.equals(movie.title) ? movie.originalTitle : null);
+        directorText.setNullableText(combineNames(movie.directors));
+        writerText.setNullableText(combineNames(movie.writers));
+        actorText.setNullableText(combineNames(movie.casts));
+        typeText.setNullableText(combineString(movie.types));
+        countryText.setNullableText(combineString(movie.countries));
+        languageText.setNullableText(combineString(movie.languages));
+        releaseDateText.setNullableText(combineString(movie.releaseDates));
+        runtimeText.setNullableText(combineString(movie.durations));
+        akaText.setNullableText(combineString(movie.akas));
+        summaryText.setText(movie.summary);
     }
 
     private String combineString(String[] strings) {
@@ -106,11 +198,4 @@ public class MovieDetailFragment extends AbstractFragment {
         }
         return builder.toString();
     }
-
-    @Override
-    protected void childLoadData() {
-
-    }
-
-
 }

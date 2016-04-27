@@ -14,4 +14,8 @@ public interface MovieRepository {
      */
     Observable<MovieList> topMovies(int start, int count);
 
+    /**
+     * Get an {@link rx.Observable} which will emit a {@link Movie}.
+     */
+    Observable<Movie> movie(String id);
 }
