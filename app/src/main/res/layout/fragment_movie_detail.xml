@@ -19,7 +19,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
 
                 <ImageView
                     android:id="@+id/md_cover"
@@ -32,12 +33,45 @@
                     app:layout_collapseParallaxMultiplier="0.7"
                     tools:ignore="ContentDescription" />
 
-                <Space
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
 
-                <include layout="@layout/include_ll_rating" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <RatingBar
+                            android:id="@+id/md_rating"
+                            style="@style/MovieRatingBar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:stepSize="0.5"
+                            tools:rating="2.5" />
+
+                        <TextView
+                            android:id="@+id/md_score"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:singleLine="true"
+                            android:textColor="@color/gray_500"
+                            android:textSize="12sp"
+                            tools:text="5.0" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/md_rating_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/gray_500"
+                        android:textSize="12sp"
+                        tools:text="100000人评价" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -268,7 +302,7 @@
                 android:layout_marginBottom="6dp"
                 android:layout_marginTop="6dp"
                 android:lineSpacingExtra="6dp"
-                android:lines="5"
+                android:maxLines="5"
                 android:textColor="?android:attr/textColorPrimary"
                 android:textSize="14sp"
                 tools:text="Summary" />

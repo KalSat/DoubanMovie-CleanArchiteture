@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -16,6 +17,8 @@ import com.tritiger.doubanmovie.presenter.MovieDetailPresenter;
 import com.tritiger.doubanmovie.ui.IViewMovieDetail;
 import com.tritiger.doubanmovie.widget.HiddenTextView;
 
+import java.util.Locale;
+
 public class MovieDetailFragment extends AbstractFragment implements IViewMovieDetail {
 
     private static final String ARG_MOVIE = "movie";
@@ -23,6 +26,10 @@ public class MovieDetailFragment extends AbstractFragment implements IViewMovieD
     private Movie movie;
     private MovieDetailPresenter movieDetailPresenter;
 
+    private ImageView coverImage;
+    private RatingBar ratingBar;
+    private TextView scoreText;
+    private TextView ratingCountText;
     private HiddenTextView originalTitleText;
     private HiddenTextView directorText;
     private HiddenTextView writerText;
@@ -34,6 +41,7 @@ public class MovieDetailFragment extends AbstractFragment implements IViewMovieD
     private HiddenTextView runtimeText;
     private HiddenTextView akaText;
     private TextView summaryText;
+    private TextView summaryMoreText;
 
     public MovieDetailFragment() {
         // Required empty public constructor
@@ -99,6 +107,10 @@ public class MovieDetailFragment extends AbstractFragment implements IViewMovieD
             }
         });
 
+        coverImage = (ImageView) view.findViewById(R.id.md_cover);
+        ratingBar = (RatingBar) view.findViewById(R.id.md_rating);
+        scoreText = (TextView) view.findViewById(R.id.md_score);
+        ratingCountText = (TextView) view.findViewById(R.id.md_rating_count);
         originalTitleText = (HiddenTextView) view.findViewById(R.id.md_original_title);
         directorText = (HiddenTextView) view.findViewById(R.id.md_director);
         writerText = (HiddenTextView) view.findViewById(R.id.md_writers);
@@ -111,18 +123,21 @@ public class MovieDetailFragment extends AbstractFragment implements IViewMovieD
         akaText = (HiddenTextView) view.findViewById(R.id.md_aka);
         summaryText = (TextView) view.findViewById(R.id.md_summary);
 
-        if (movie.cover != null) {
-            Picasso.with(getContext()).load(movie.cover.large)
-                    .into((ImageView) view.findViewById(R.id.md_cover));
-        }
-
-//        rbSubjectRating = (RatingBar) findViewById(R.id.rb_subject_rating);
-//        tvSubjectRating = (TextView) findViewById(R.id.tv_subject_rating);
-//        tvSubjectFavoriteCount = (TextView) findViewById(R.id.tv_subject_favorite_count);
-
         updateView(this.movie);
 
-        view.findViewById(R.id.md_summary_more).setOnClickListener(null);
+        summaryMoreText = ((TextView) view.findViewById(R.id.md_summary_more));
+        summaryMoreText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (summaryText.getMaxLines() > 5) {
+                    summaryText.setMaxLines(5);
+                    summaryMoreText.setText(getString(R.string.more_info));
+                } else {
+                    summaryText.setMaxLines(Integer.MAX_VALUE);
+                    summaryMoreText.setText(getString(R.string.put_away));
+                }
+            }
+        });
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.md_recommend_movies);
 
     }
@@ -159,6 +174,15 @@ public class MovieDetailFragment extends AbstractFragment implements IViewMovieD
     }
 
     private void updateView(Movie movie) {
+        if (movie.cover != null) {
+            Picasso.with(getContext()).load(movie.cover.large)
+                    .into(coverImage);
+        }
+        if (movie.rating != null) {
+            ratingBar.setRating(movie.rating.average / 2);
+            scoreText.setText(String.valueOf(movie.rating.average));
+            ratingCountText.setText(String.format(Locale.US, "%d人评价", movie.ratingNum));
+        }
         originalTitleText.setNullableText(
                 !movie.originalTitle.equals(movie.title) ? movie.originalTitle : null);
         directorText.setNullableText(combineNames(movie.directors));
