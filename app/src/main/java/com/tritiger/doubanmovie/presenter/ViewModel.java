@@ -1,24 +1,26 @@
 package com.tritiger.doubanmovie.presenter;
 
+import android.databinding.BaseObservable;
+
 /**
- * Interface representing a Presenter in a model view presenter (MVP) pattern.
+ * Interface representing a ViewModel in a model view presenter (MVP) pattern.
  */
-public interface Presenter {
+public abstract class ViewModel extends BaseObservable {
     /**
      * Method that control the lifecycle of the view. It should be called in the view's
      * (Activity or Fragment) onResume() method.
      */
-    void resume();
+    abstract void resume();
 
     /**
      * Method that control the lifecycle of the view. It should be called in the view's
      * (Activity or Fragment) onPause() method.
      */
-    void pause();
+    abstract void pause();
 
     /**
      * Method that control the lifecycle of the view. It should be called in the view's
      * (Activity or Fragment) onDestroy() method.
      */
-    void destroy();
+    abstract void destroy();
 }

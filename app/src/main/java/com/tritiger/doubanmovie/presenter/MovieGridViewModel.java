@@ -16,16 +16,16 @@ import com.tritiger.doubanmovie.exception.ErrorMessageFactory;
 import com.tritiger.doubanmovie.ui.IViewMovieGrid;
 
 /**
- * {@link Presenter} that controls communication between views and models of the presentation
+ * {@link ViewModel} that controls communication between views and models of the presentation
  * layer.
  */
-public class MovieGridPresenter implements Presenter {
+public class MovieGridViewModel extends ViewModel {
 
     private final IViewMovieGrid viewMovieGrid;
     private final GetMovieList getMovieListCase;
     private final GetMovieList getMovieListCacheCase;
 
-    public MovieGridPresenter(@NonNull IViewMovieGrid viewMovieGrid) {
+    public MovieGridViewModel(@NonNull IViewMovieGrid viewMovieGrid) {
         MovieDataStoreFactory factory = new MovieDataStoreFactory(viewMovieGrid.getContext());
         this.getMovieListCase = new GetMovieList(
                 new MovieDataRepository(factory.createCloudDataStore()),

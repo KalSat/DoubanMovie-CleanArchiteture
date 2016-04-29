@@ -1,5 +1,6 @@
 package com.tritiger.doubanmovie.presenter;
 
+import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
 
 import com.tritiger.doubanmovie.UIThread;
@@ -17,17 +18,20 @@ import com.tritiger.doubanmovie.ui.IViewMovieDetail;
 /**
  * Created by chengbiao on 2016/4/27.
  */
-public class MovieDetailPresenter implements Presenter {
+public class MovieDetailViewModel extends ViewModel {
 
     private final IViewMovieDetail viewMovieDetail;
     private final GetMovie getMovieCase;
 
-    public MovieDetailPresenter(@NonNull IViewMovieDetail viewMovieDetail) {
+    public final ObservableField<Movie> movie;
+
+    public MovieDetailViewModel(@NonNull IViewMovieDetail viewMovieDetail) {
         MovieDataStoreFactory factory = new MovieDataStoreFactory(viewMovieDetail.getContext());
         getMovieCase = new GetMovie(
                 new MovieDataRepository(factory.createCloudDataStore()),
                 new JobExecutor(), new UIThread());
         this.viewMovieDetail = viewMovieDetail;
+        movie = new ObservableField<>();
     }
 
     @Override
@@ -49,10 +53,10 @@ public class MovieDetailPresenter implements Presenter {
     /**
      * Reloads all movies.
      */
-    public void refreshMovie(String id) {
+    public void refreshMovie() {
         hideViewRetry();
         showViewLoading();
-        refetchMovieData(id);
+        refetchMovieData(movie.get().id);
     }
 
     private void showViewLoading() {
@@ -81,7 +85,7 @@ public class MovieDetailPresenter implements Presenter {
         getMovieCase.execute(id, new DefaultSubscriber<Movie>() {
             @Override
             public void onNext(Movie movie) {
-                viewMovieDetail.renderMovie(movie);
+                MovieDetailViewModel.this.movie.set(movie);
             }
 
             @Override

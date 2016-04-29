@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.tritiger.doubanmovie.R;
 import com.tritiger.doubanmovie.domain.Movie;
-import com.tritiger.doubanmovie.presenter.MovieGridPresenter;
+import com.tritiger.doubanmovie.presenter.MovieGridViewModel;
 import com.tritiger.doubanmovie.ui.IViewMovieGrid;
 import com.tritiger.doubanmovie.ui.activity.MovieDetailActivity;
 import com.tritiger.doubanmovie.ui.adapter.MovieGridAdapter;
@@ -25,7 +25,7 @@ public class TopMovieFragment extends AbstractFragment implements IViewMovieGrid
 
     public static final int LOAD_DATA_COUNT = 20;
 
-    private MovieGridPresenter movieGridPresenter;
+    private MovieGridViewModel movieGridPresenter;
     private MovieGridAdapter adapter;
     private EndlessRecyclerView recyclerView;
 
@@ -40,7 +40,7 @@ public class TopMovieFragment extends AbstractFragment implements IViewMovieGrid
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_top_movie, container, false);
         initView(view);
-        movieGridPresenter = new MovieGridPresenter(this);
+        movieGridPresenter = new MovieGridViewModel(this);
         return view;
     }
 

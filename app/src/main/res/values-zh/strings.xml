@@ -17,4 +17,5 @@
     <string name="type">类别:</string>
     <string name="writers">编剧:</string>
     <string name="put_away">收起</string>
+    <string name="rated">%d人评价</string>
 </resources>

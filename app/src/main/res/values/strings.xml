@@ -24,4 +24,5 @@
     <string name="aka">Also Known As:</string>
     <string name="summary">Plot Summary</string>
     <string name="recommend">People who liked this also liked…</string>
+    <string name="rated">%dRating</string>
 </resources>
