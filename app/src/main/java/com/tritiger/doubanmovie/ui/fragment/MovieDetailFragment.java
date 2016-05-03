@@ -2,7 +2,6 @@ package com.tritiger.doubanmovie.ui.fragment;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +36,7 @@ public class MovieDetailFragment extends AbstractFragment implements IViewMovieD
                                      Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater,
                 R.layout.fragment_movie_detail, container, false);
+        binding.setV(this);
 
         Movie movie = null;
         if (getArguments() != null) {
@@ -81,25 +81,22 @@ public class MovieDetailFragment extends AbstractFragment implements IViewMovieD
 
     private void initView() {
         mSwipeRefreshLayout = binding.swipe;
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                viewModel.refreshMovie();
-            }
-        });
+    }
 
-        binding.summaryMore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (binding.summary.getMaxLines() > 5) {
-                    binding.summary.setMaxLines(5);
-                    binding.summaryMore.setText(getString(R.string.more_info));
-                } else {
-                    binding.summary.setMaxLines(Integer.MAX_VALUE);
-                    binding.summaryMore.setText(getString(R.string.put_away));
-                }
-            }
-        });
+    @SuppressWarnings("unused")
+    public void onRefresh() {
+        viewModel.refreshMovie();
+    }
+
+    @SuppressWarnings("unused")
+    public void onMoreClick(View v) {
+        if (binding.summary.getMaxLines() > 5) {
+            binding.summary.setMaxLines(5);
+            binding.summaryMore.setText(getString(R.string.more_info));
+        } else {
+            binding.summary.setMaxLines(Integer.MAX_VALUE);
+            binding.summaryMore.setText(getString(R.string.put_away));
+        }
     }
 
     @Override

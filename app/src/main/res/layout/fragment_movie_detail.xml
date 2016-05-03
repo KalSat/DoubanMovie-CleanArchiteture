@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <!--suppress AndroidUnknownAttribute -->
     <data class="MovieDetailBinding">
@@ -13,12 +13,17 @@
         <variable
             name="vm"
             type="com.tritiger.doubanmovie.presenter.MovieDetailViewModel" />
+
+        <variable
+            name="v"
+            type="com.tritiger.doubanmovie.ui.fragment.MovieDetailFragment" />
     </data>
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:onRefresh="@{v.onRefresh}">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -350,7 +355,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="6dp"
+                    android:clickable="true"
                     android:gravity="center"
+                    android:onClick="@{v.onMoreClick}"
                     android:singleLine="true"
                     android:text="@string/more_info"
                     android:textColor="@color/green_500"
