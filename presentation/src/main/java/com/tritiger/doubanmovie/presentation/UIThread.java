@@ -1,4 +1,4 @@
-package com.tritiger.doubanmovie;
+package com.tritiger.doubanmovie.presentation;
 
 import com.tritiger.doubanmovie.domain.executor.PostExecutionThread;
 

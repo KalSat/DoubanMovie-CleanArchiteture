@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import com.tritiger.doubanmovie.R;
 import com.tritiger.doubanmovie.databinding.MovieDetailBinding;
 import com.tritiger.doubanmovie.domain.Movie;
-import com.tritiger.doubanmovie.presenter.MovieDetailViewModel;
-import com.tritiger.doubanmovie.ui.IViewMovieDetail;
+import com.tritiger.doubanmovie.presentation.view.IViewMovieDetail;
+import com.tritiger.doubanmovie.presentation.viewmodel.MovieDetailViewModel;
 
 public class MovieDetailFragment extends AbstractFragment implements IViewMovieDetail {
 

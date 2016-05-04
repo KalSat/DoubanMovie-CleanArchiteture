@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <!--suppress AndroidUnknownAttribute -->
@@ -12,18 +11,19 @@
 
         <variable
             name="vm"
-            type="com.tritiger.doubanmovie.presenter.MovieDetailViewModel" />
+            type="com.tritiger.doubanmovie.presentation.viewmodel.MovieDetailViewModel" />
 
         <variable
             name="v"
             type="com.tritiger.doubanmovie.ui.fragment.MovieDetailFragment" />
     </data>
 
+    <!--suppress AndroidUnknownAttribute -->
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:onRefresh="@{v.onRefresh}">
+        android:onRefresh="@{v.onRefresh}">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -41,6 +41,7 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
+                    <!--suppress AndroidUnknownAttribute -->
                     <ImageView
                         android:id="@+id/cover"
                         android:layout_width="160dp"
@@ -48,7 +49,7 @@
                         android:layout_gravity="center"
                         android:fitsSystemWindows="true"
                         android:scaleType="centerCrop"
-                        app:imageUrl="@{vm.movie.cover.large}"
+                        android:imageUrl="@{vm.movie.cover.large}"
                         tools:ignore="ContentDescription" />
 
                     <LinearLayout

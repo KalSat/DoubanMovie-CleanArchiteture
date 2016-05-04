@@ -1,4 +1,4 @@
-package com.tritiger.doubanmovie.presenter;
+package com.tritiger.doubanmovie.presentation.viewmodel;
 
 import android.databinding.BaseObservable;
 

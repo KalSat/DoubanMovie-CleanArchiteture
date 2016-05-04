@@ -13,11 +13,11 @@ import com.squareup.picasso.Picasso;
  */
 @SuppressWarnings("unused")
 @BindingMethods({
-        @BindingMethod(type = SwipeRefreshLayout.class, attribute = "app:onRefresh", method = "setOnRefreshListener")
+        @BindingMethod(type = SwipeRefreshLayout.class, attribute = "android:onRefresh", method = "setOnRefreshListener")
 })
 public class DataBindingAdapter {
 
-    @BindingAdapter({"app:imageUrl"})
+    @BindingAdapter({"android:imageUrl"})
     public static void loadImage(ImageView view, String url) {
         Picasso.with(view.getContext()).load(url).into(view);
     }

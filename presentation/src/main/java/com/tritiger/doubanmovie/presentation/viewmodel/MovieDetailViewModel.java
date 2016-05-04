@@ -1,9 +1,8 @@
-package com.tritiger.doubanmovie.presenter;
+package com.tritiger.doubanmovie.presentation.viewmodel;
 
 import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
 
-import com.tritiger.doubanmovie.UIThread;
 import com.tritiger.doubanmovie.data.executor.JobExecutor;
 import com.tritiger.doubanmovie.data.repository.MovieDataRepository;
 import com.tritiger.doubanmovie.data.repository.datasource.MovieDataStoreFactory;
@@ -12,8 +11,9 @@ import com.tritiger.doubanmovie.domain.exception.DefaultErrorBundle;
 import com.tritiger.doubanmovie.domain.exception.ErrorBundle;
 import com.tritiger.doubanmovie.domain.interactor.DefaultSubscriber;
 import com.tritiger.doubanmovie.domain.interactor.GetMovie;
-import com.tritiger.doubanmovie.exception.ErrorMessageFactory;
-import com.tritiger.doubanmovie.ui.IViewMovieDetail;
+import com.tritiger.doubanmovie.presentation.UIThread;
+import com.tritiger.doubanmovie.presentation.exception.ErrorMessageFactory;
+import com.tritiger.doubanmovie.presentation.view.IViewMovieDetail;
 
 /**
  * Created by chengbiao on 2016/4/27.

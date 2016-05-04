@@ -1,8 +1,8 @@
-package com.tritiger.doubanmovie.exception;
+package com.tritiger.doubanmovie.presentation.exception;
 
 import android.content.Context;
 
-import com.tritiger.doubanmovie.R;
+import com.tritiger.doubanmovie.presentation.R;
 
 /**
  * Factory used to create error messages from an Exception as a condition.

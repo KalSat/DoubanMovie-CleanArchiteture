@@ -1,4 +1,4 @@
-package com.tritiger.doubanmovie.ui;
+package com.tritiger.doubanmovie.presentation.view;
 
 import com.tritiger.doubanmovie.domain.Movie;
 

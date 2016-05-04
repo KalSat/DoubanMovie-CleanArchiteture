@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 
 import com.tritiger.doubanmovie.R;
 import com.tritiger.doubanmovie.domain.Movie;
-import com.tritiger.doubanmovie.presenter.MovieGridViewModel;
-import com.tritiger.doubanmovie.ui.IViewMovieGrid;
+import com.tritiger.doubanmovie.presentation.view.IViewMovieGrid;
+import com.tritiger.doubanmovie.presentation.viewmodel.MovieGridViewModel;
 import com.tritiger.doubanmovie.ui.activity.MovieDetailActivity;
 import com.tritiger.doubanmovie.ui.adapter.MovieGridAdapter;
 import com.tritiger.doubanmovie.widget.EndlessRecyclerView;
